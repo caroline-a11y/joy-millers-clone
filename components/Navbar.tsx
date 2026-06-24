@@ -1,23 +1,37 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar() {
   return (
-    <header className="bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 text-gray-800">
 
-        <h1 className="text-3xl font-bold text-green-700">
-          furaha Millers
-        </h1>
+        {/* Logo */}
+        <Link href="/">
+          <Image
+            src="/images/logo.jpeg"
+            alt="Joy Millers Logo"
+            width={70}
+            height={40}
+            className="object-contain"
+          />
+        </Link>
 
-        <nav className="flex gap-8">
-          <Link href="/">Home</Link>
-          <Link href="/about">About</Link>
-          <Link href="/products">Products</Link>
-          <Link href="/services">Services</Link>
-          <Link href="/contact">Contact</Link>
-        </nav>
+        {/* Links */}
+        <div className="hidden md:flex gap-8 font-medium">
+
+          <a href="#">Home</a>
+          <a href="#about">About</a>
+          <a href="#brands">Brands</a>
+          <a href="#products">Products</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#services">Process</a>
+          <a href="#careers">Careers</a>
+          <a href="#contact">Contact</a>
+
+        </div>
 
       </div>
-    </header>
+    </nav>
   );
 }
