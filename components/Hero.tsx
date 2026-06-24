@@ -17,7 +17,8 @@ export default function Hero() {
           </p>
 
           <button className="bg-yellow-500 px-8 py-4 rounded-md text-black font-semibold">
-            Learn More
+            
+            Discover More
           </button>
         </div>
       </div>

@@ -1,6 +1,13 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
+import ApplyModal from "@/components/ApplyModal";
 
 export default function CareersPage() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedPosition, setSelectedPosition] = useState("");
+
   return (
     <main>
 
@@ -8,14 +15,13 @@ export default function CareersPage() {
       <section className="relative h-screen flex items-center justify-center">
 
         <Image
-          src="/images/careers-bg.jpg"
-          alt="Careers"
-          fill
-          priority
-          className="object-cover"
+            src="/images/career2.jpeg"
+            alt="Careers"
+            fill
+            className="object-cover"
         />
 
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-black/60" />
 
         <div className="relative text-center text-white px-6 max-w-4xl">
           <h1 className="text-6xl font-bold mb-8">
@@ -32,7 +38,14 @@ export default function CareersPage() {
             individuals who share our commitment to quality, innovation, and service.
           </p>
 
-          <button className="bg-green-700 px-8 py-4 rounded-lg hover:bg-green-800 transition">
+          <button
+            onClick={() => {
+              document
+                .getElementById("openings")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="bg-green-700 px-8 py-4 rounded-lg hover:bg-green-800 transition"
+          >
             View Open Positions
           </button>
         </div>
@@ -57,35 +70,11 @@ export default function CareersPage() {
             environment where every team member can thrive.
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-            {[
-              "Career Growth Opportunities",
-              "Training & Development",
-              "Competitive Compensation",
-              "Supportive Work Environment",
-              "Equal Opportunity Employment",
-              "Purpose-Driven Work",
-              "Employee Recognition Programs",
-              "Health & Safety First",
-            ].map((item) => (
-              <div
-                key={item}
-                className="bg-white shadow-lg rounded-2xl p-8 hover:-translate-y-2 transition"
-              >
-                <h3 className="font-bold text-green-700 text-lg">
-                  ✓ {item}
-                </h3>
-              </div>
-            ))}
-
-          </div>
-
         </div>
       </section>
 
-      {/* WE ARE HIRING */}
-      <section className="py-28 bg-yellow-50">
+      {/* CURRENT OPENINGS */}
+      <section id="openings" className="py-28 bg-yellow-50">
 
         <div className="max-w-7xl mx-auto px-6">
 
@@ -99,90 +88,55 @@ export default function CareersPage() {
 
           <div className="grid md:grid-cols-2 gap-8">
 
-            {/* Job Card */}
-            <div className="bg-white p-10 rounded-2xl shadow-lg">
-              <h3 className="text-3xl font-bold text-green-700 mb-4">
-                Miller
-              </h3>
+            {/* JOBS */}
+            {[
+              {
+                title: "Miller",
+                desc: "Operate milling machinery, monitor production quality, and ensure efficient processing operations.",
+              },
+              {
+                title: "Sales & Marketing Executive",
+                desc: "Drive sales growth, build customer relationships, and expand our market presence.",
+              },
+              {
+                title: "Quality Assurance Officer",
+                desc: "Ensure all products meet food safety and quality standards.",
+              },
+              {
+                title: "Production Assistant",
+                desc: "Support daily production activities and maintain operational efficiency.",
+              },
+            ].map((job) => (
+              <div
+                key={job.title}
+                className="bg-white p-10 rounded-2xl shadow-lg"
+              >
+                <h3 className="text-3xl font-bold text-green-700 mb-4">
+                  {job.title}
+                </h3>
 
-              <p className="text-gray-700 mb-6">
-                Operate milling machinery, monitor production quality,
-                and ensure efficient processing operations.
-              </p>
+                <p className="text-gray-700 mb-6">{job.desc}</p>
 
-              <p className="mb-6">
-                📍 Location: Ruiru
-              </p>
+                <p className="mb-6">📍 Location: Ruiru</p>
 
-              <button className="bg-green-700 text-white px-6 py-3 rounded-lg">
-                Apply Now
-              </button>
-            </div>
-
-            <div className="bg-white p-10 rounded-2xl shadow-lg">
-              <h3 className="text-3xl font-bold text-green-700 mb-4">
-                Sales & Marketing Executive
-              </h3>
-
-              <p className="text-gray-700 mb-6">
-                Drive sales growth, build customer relationships,
-                and expand our market presence.
-              </p>
-
-              <p className="mb-6">
-                📍 Location: Ruiru
-              </p>
-
-              <button className="bg-green-700 text-white px-6 py-3 rounded-lg">
-                Apply Now
-              </button>
-            </div>
-
-            <div className="bg-white p-10 rounded-2xl shadow-lg">
-              <h3 className="text-3xl font-bold text-green-700 mb-4">
-                Quality Assurance Officer
-              </h3>
-
-              <p className="text-gray-700 mb-6">
-                Ensure all products meet food safety and quality standards.
-              </p>
-
-              <p className="mb-6">
-                📍 Location: Ruiru
-              </p>
-
-              <button className="bg-green-700 text-white px-6 py-3 rounded-lg">
-                Apply Now
-              </button>
-            </div>
-
-            <div className="bg-white p-10 rounded-2xl shadow-lg">
-              <h3 className="text-3xl font-bold text-green-700 mb-4">
-                Production Assistant
-              </h3>
-
-              <p className="text-gray-700 mb-6">
-                Support daily production activities and maintain
-                operational efficiency.
-              </p>
-
-              <p className="mb-6">
-                📍 Location: Ruiru
-              </p>
-
-              <button className="bg-green-700 text-white px-6 py-3 rounded-lg">
-                Apply Now
-              </button>
-            </div>
+                <button
+                  onClick={() => {
+                    setSelectedPosition(job.title);
+                    setIsOpen(true);
+                  }}
+                  className="bg-green-700 text-white px-6 py-3 rounded-lg"
+                >
+                  Apply Now
+                </button>
+              </div>
+            ))}
 
           </div>
-
         </div>
       </section>
 
       {/* EARLY CAREERS */}
       <section className="py-28 bg-green-700 text-white">
-
         <div className="max-w-6xl mx-auto px-6">
 
           <h2 className="text-5xl font-bold mb-8">
@@ -194,27 +148,18 @@ export default function CareersPage() {
           </p>
 
           <div className="grid md:grid-cols-3 gap-8">
-
             <div>✓ Recent Graduates</div>
             <div>✓ Interns</div>
             <div>✓ Apprentices</div>
             <div>✓ Industrial Attachment Students</div>
             <div>✓ Entry-Level Professionals</div>
-
           </div>
 
-          <p className="mt-12 text-lg leading-8">
-            At FortiCereals, we believe everyone deserves an opportunity to
-            learn, grow, and contribute.
-          </p>
-
         </div>
-
       </section>
 
-      {/* OUR CULTURE */}
+      {/* CULTURE */}
       <section className="py-28 bg-gray-100">
-
         <div className="max-w-7xl mx-auto px-6">
 
           <h2 className="text-5xl font-bold text-center mb-16">
@@ -222,30 +167,28 @@ export default function CareersPage() {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
-
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <p className="italic text-lg">
-                "Every day I know I'm contributing to something meaningful."
-              </p>
+            <div className="bg-white p-8 rounded-2xl shadow-lg italic">
+              "Every day I know I'm contributing to something meaningful."
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <p className="italic text-lg">
-                "FortiCereals has given me opportunities to learn and grow."
-              </p>
+            <div className="bg-white p-8 rounded-2xl shadow-lg italic">
+              "FortiCereals has given me opportunities to learn and grow."
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <p className="italic text-lg">
-                "We're one team working towards one purpose."
-              </p>
+            <div className="bg-white p-8 rounded-2xl shadow-lg italic">
+              "We're one team working towards one purpose."
             </div>
-
           </div>
 
         </div>
-
       </section>
+
+      {/* APPLY MODAL */}
+      <ApplyModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        position={selectedPosition}
+      />
 
     </main>
   );

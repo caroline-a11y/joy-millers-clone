@@ -14,7 +14,7 @@ export default function CareersPreview() {
 
       {/* Background */}
       <Image
-        src="/images/careers-bg.jpg"
+        src="/images/career2.jpeg"
         alt="Careers"
         fill
         className="object-cover"

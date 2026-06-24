@@ -11,6 +11,29 @@ export default function Footer() {
           Delivering quality products and services with excellence.
         </p>
 
+        <p className="text-gray-300">
+          📍 Ruiru, Kenya
+        </p>
+
+        <p className="text-gray-300">
+         Business Hours
+        </p>
+
+        
+        <p className="text-gray-300">
+        Monday – Friday: 8:00 AM – 5:00 PM
+        </p>
+
+        
+        <p className="text-gray-300">
+          Saturday: 8:00 AM – 1:00 PM
+        </p>
+
+        
+        <p className="text-gray-300">
+          Sunday & Public Holidays: Closed
+        </p>
+
         <hr className="my-8" />
 
         <p className="text-center text-gray-400">
