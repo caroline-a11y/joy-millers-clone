@@ -1,10 +1,5 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { prisma } from "@/lib/prisma";
-import fs from "fs";
-import path from "path";
-import { v4 as uuidv4 } from "uuid";
-
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -21,16 +16,6 @@ export async function POST(req: Request) {
 
     const resume = formData.get("resume") as File | null;
 
-    if (!fullName || !email || !phone) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Please fill in all required fields.",
-        },
-        { status: 400 }
-      );
-    }
-
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -39,51 +24,43 @@ export async function POST(req: Request) {
       },
     });
 
-    let attachments: {
-      filename: string;
-      content: Buffer;
-    }[] = [];
+    let attachments: any[] = [];
 
     if (resume) {
-      const bytes = await resume.arrayBuffer();
+      const buffer = Buffer.from(await resume.arrayBuffer());
 
       attachments.push({
         filename: resume.name,
-        content: Buffer.from(bytes),
+        content: buffer,
       });
     }
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: process.env.HR_EMAIL || "info@forticereals.co.ke",
-      subject: `New Job Application - ${position || "General Application"}`,
+      to: process.env.HR_EMAIL,
+      subject: `New Job Application - ${position}`,
       replyTo: email,
       html: `
-        <h2>New Job Application</h2>
-
-        <p><strong>Full Name:</strong> ${fullName}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Position:</strong> ${position}</p>
-
-        <h3>Cover Letter</h3>
-        <p>${coverLetter || "No cover letter provided."}</p>
+        <h2>New Application</h2>
+        <p><b>Name:</b> ${fullName}</p>
+        <p><b>Email:</b> ${email}</p>
+        <p><b>Phone:</b> ${phone}</p>
+        <p><b>Position:</b> ${position}</p>
+        <p><b>Cover Letter:</b> ${coverLetter}</p>
       `,
       attachments,
     });
 
     return NextResponse.json({
       success: true,
-      message: "Application submitted successfully.",
+      message: "Application submitted successfully",
     });
+
   } catch (error) {
     console.error("APPLICATION ERROR:", error);
 
     return NextResponse.json(
-      {
-        success: false,
-        error: "Failed to submit application.",
-      },
+      { success: false, error: "Failed to submit application" },
       { status: 500 }
     );
   }
