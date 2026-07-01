@@ -22,7 +22,6 @@ export default function Navbar() {
 
           <a href="#">Home</a>
           <a href="#about">About</a>
-          <a href="#brands">Brands</a>
           <a href="#products">Products</a>
           <a href="#gallery">Gallery</a>
           <a href="#process">Process</a>
